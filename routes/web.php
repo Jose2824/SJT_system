@@ -28,6 +28,9 @@ Route::resource('veiculos', veiculoController::class);
 use App\Http\Controllers\caminhoesController;
 Route::resource('caminhoes', caminhoesController::class);
 
+use App\Http\Controllers\clientesController;
+Route::resource('clientes', ClientesController::class);
+
 use App\Http\Controllers\RelatorioController;
 Route::resource('relatorios', RelatorioController::class);
 

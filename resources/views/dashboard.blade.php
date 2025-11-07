@@ -21,6 +21,7 @@
                 <a href="{{ route('motoristas.index') }}" class="hover:text-[#BFC4C9]">Motoristas</a>
                  <a href="{{ route('caminhoes.index') }}" class="hover:text-[#BFC4C9]">Caminhões</a>
                 <a href="{{ route('veiculos.index') }}" class="hover:text-[#BFC4C9]">Veículos</a>
+                <a href="{{ route('clientes.index') }}" class="hover:text-[#BFC4C9]">Clientes</a>
                 <a href="{{ route('relatorios.index') }}" class="hover:text-[#BFC4C9]">Relatórios</a>
                 <form method="POST" action="{{ route('logout') }}" class= "inline">
                 @csrf

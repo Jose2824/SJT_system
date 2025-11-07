@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\motoristas;
 use Illuminate\Http\Request;
-
+use App\Models\Motorista;
 class MotoristasController extends Controller
 {
     /**
@@ -12,7 +11,9 @@ class MotoristasController extends Controller
      */
     public function index()
     {
-        //
+        $motoristas = Motorista::all();
+
+        return view('motoristas.index', compact('motoristas'));
     }
 
     /**
@@ -20,46 +21,70 @@ class MotoristasController extends Controller
      */
     public function create()
     {
-        //
+        return view('motoristas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Salvar novo motorista
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nome'     => 'required|string|max:255',
+            'datanasc' => 'required|date',
+            'cpf'      => 'required|string|max:20|unique:motoristas,cpf',
+            'cnh'      => 'required|string|max:50',
+            'numcont'  => 'required|string|max:20',
+        ]);
+
+        Motorista::create([
+            'nome'     => $validated['nome'],
+            'datanasc' => $validated['datanasc'],
+            'cpf'      => $validated['cpf'],
+            'cnh'      => $validated['cnh'],
+            'numcont'  => $validated['numcont'],
+        ]);
+
+        return redirect()->route('motoristas.index')->with('success', 'Motorista criado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(motoristas $motoristas)
+    // Mostrar detalhes de um motorista
+    public function show(Motorista $motorista)
     {
-        //
+    //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(motoristas $motoristas)
+    // Formulário para editar motorista
+    public function edit(Motorista $motorista)
     {
-        //
+        return view('motoristas.edit', compact('motorista'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, motoristas $motoristas)
+    // Atualizar motorista
+    public function update(Request $request, Motorista $motorista)
     {
-        //
+        $validated = $request->validate([
+            'nome'     => 'required|string|max:255',
+            'datanasc' => 'required|date',
+            'cpf'      => 'required|string|max:20|unique:motoristas,cpf,' . $motorista->id,
+            'cnh'      => 'required|string|max:50',
+            'numcont'  => 'required|string|max:20',
+        ]);
+
+        $motorista->update([
+            'nome'     => $validated['nome'],
+            'datanasc' => $validated['datanasc'],
+            'cpf'      => $validated['cpf'],
+            'cnh'      => $validated['cnh'],
+            'numcont'  => $validated['numcont'],
+        ]);
+
+        return redirect()->route('motoristas.index')->with('success', 'Motorista atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(motoristas $motoristas)
+    // Deletar motorista
+    public function destroy(Motorista $motorista)
     {
-        //
+        $motorista->delete();
+
+        return redirect()->route('motoristas.index')->with('success', 'Motorista removido!');
     }
 }
