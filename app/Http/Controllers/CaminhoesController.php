@@ -2,64 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\caminhoes;
+use App\Models\Caminhoes; 
 use Illuminate\Http\Request;
 
 class CaminhoesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $caminhoes = Caminhoes::all();
+        return view('caminhoes.index', compact('caminhoes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('caminhoes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'modelo' => 'required',
+            'cor' => 'required',
+            'cavalaria' => 'required',
+            'ano' => 'required|digits:4',
+            'renavam' => 'required|unique:caminhoes,renavam',
+            'placa' => 'required|unique:caminhoes,placa',
+        ]);
+
+        Caminhoes::create($request->all());
+
+        return redirect()->route('caminhoes.index')->with('success', 'Caminhão cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(caminhoes $caminhoes)
+    public function edit($id)
     {
-        //
+        $caminhao = Caminhoes::findOrFail($id);
+        return view('caminhoes.edit', compact('caminhao'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(caminhoes $caminhoes)
+    public function update(Request $request, $id)
     {
-        //
+        $caminhao = Caminhoes::findOrFail($id);
+
+        $request->validate([
+            'modelo' => 'required',
+            'cor' => 'required',
+            'cavalaria' => 'required',
+            'ano' => 'required|digits:4',
+            'renavam' => 'required|unique:caminhoes,renavam,' . $caminhao->id,
+            'placa' => 'required|unique:caminhoes,placa,' . $caminhao->id,
+        ]);
+
+        $caminhao->update($request->all());
+
+        return redirect()->route('caminhoes.index')->with('success', 'Caminhão atualizado com sucesso!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, caminhoes $caminhoes)
+    public function destroy($id)
     {
-        //
-    }
+        $caminhao = Caminhoes::findOrFail($id);
+        $caminhao->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(caminhoes $caminhoes)
-    {
-        //
+        return redirect()->route('caminhoes.index')->with('success', 'Caminhão excluído com sucesso!');
     }
 }
