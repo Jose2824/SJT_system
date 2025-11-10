@@ -12,9 +12,6 @@
     <header class="bg-[#0026FF] text-white shadow-md py-4">
         <div class="container mx-auto flex justify-between items-center px-4">
             <h1 class="text-xl font-bold">🚛 São José Transportes</h1>
-            <nav class="space-x-4">
-                <a href="{{ route('veiculos.index') }}" class="hover:underline">Veículos</a>
-            </nav>
         </div>
     </header>
 
