@@ -42,8 +42,8 @@
                         <th class="p-3">#</th>
                         <th class="p-3">Nome</th>
                         <th class="p-3">CPF</th>
-                        <th class="p-3">Data Nascimento</th>
                         <th class="p-3">CNH</th>
+                        <th class="p-3">Data Nascimento</th>
                         <th class="p-3">Número para contato</th>
                         <th class="p-3">Ações</th>
                     </tr>
