@@ -17,7 +17,7 @@
                 🚛 São José Transportes
             </h1>
             <nav class="space-x-6">
-                <a href="{{ route('dashboard') }}" class="hover:text-[#BFC4C9]">Início</a>
+                <a href="{{ route('welcome') }}" class="hover:text-[#BFC4C9]">Início</a>
                 <a href="{{ route('motoristas.index') }}" class="hover:text-[#BFC4C9]">Motoristas</a>
                  <a href="{{ route('caminhoes.index') }}" class="hover:text-[#BFC4C9]">Caminhões</a>
                 <a href="{{ route('veiculos.index') }}" class="hover:text-[#BFC4C9]">Veículos</a>

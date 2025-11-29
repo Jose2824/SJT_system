@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-[#0026FF]">
+<div class="min-h-screen flex items-center justify-center bg-[#BFC4C9]"> <!-- fundo da página cinza metálico -->
     <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
 
         <!-- Título -->

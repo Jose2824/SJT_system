@@ -34,4 +34,10 @@ Route::resource('clientes', ClientesController::class);
 use App\Http\Controllers\RelatorioController;
 Route::resource('relatorios', RelatorioController::class);
 
+// Rota do welcome
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
+
 
