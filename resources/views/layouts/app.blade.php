@@ -17,8 +17,7 @@
 
     <!-- Conteúdo dinâmico -->
     <main class="flex-1 container mx-auto p-6">
-        @yield('content')_
-        <img src="{{ asset('assets/DAF_xf_530.jpg') }}" alt="Logo São José Transportes">
+        @yield('content')
     </main>
 
     <!-- Rodapé -->

@@ -17,7 +17,7 @@
             </div>
 
             <nav class="flex items-center space-x-6 text-lg">
-                <a href="#" class="hover:text-[#BFC4C9] transition-colors">Início</a>
+                <a href="{{ route('welcome') }}" class="hover:text-[#BFC4C9] transition-colors">Início</a>
                 <a href="#" class="hover:text-[#BFC4C9] transition-colors">Frota</a>
                 <a href="#" class="hover:text-[#BFC4C9] transition-colors">Contato</a>
 
