@@ -3,62 +3,61 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Relatorio;
 
-class relatorioController extends Controller
+class RelatorioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $relatorios = Relatorio::orderBy('data', 'desc')->get();
+        return view('relatorios.index', compact('relatorios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('relatorios.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'veiculo'   => 'required|string|max:10',
+            'descricao' => 'required|string|max:1000',
+            'valor'     => 'required|numeric',
+            'data'      => 'required|date',
+        ]);
+
+        Relatorio::create($request->all());
+
+        return redirect()->route('relatorios.index')->with('success', 'Relatório cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $relatorio = Relatorio::findOrFail($id);
+        return view('relatorios.edit', compact('relatorio'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'veiculo'   => 'required|string|max:10',
+            'descricao' => 'required|string|max:1000',
+            'valor'     => 'required|numeric',
+            'data'      => 'required|date',
+        ]);
+
+        $relatorio = Relatorio::findOrFail($id);
+        $relatorio->update($request->all());
+
+        return redirect()->route('relatorios.index')->with('success', 'Relatório atualizado com sucesso!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $relatorio = Relatorio::findOrFail($id);
+        $relatorio->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('relatorios.index')->with('success', 'Relatório excluído com sucesso!');
     }
 }

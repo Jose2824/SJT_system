@@ -53,9 +53,9 @@
                         <tr class="border-b hover:bg-gray-100">
                             <td class="p-3">{{ $index + 1 }}</td>
                             <td class="p-3">{{ $mt->nome }}</td>
-                            <td class="p-3">{{ $mt->cpf}}</td>
-                            <td class="p-3">{{ $mt->cnh}}</td>
-                            <td class="p-3">{{ $mt->datanasc }}</td>
+                            <td class="p-3">{{ preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4",$mt->cpf)}}</td>
+                            <td class="p-3">{{ preg_replace("/(\d{2})(\d{3})(\d{3})(\d{3})/", "$1.$2.$3.$4",$mt->cnh)}}</td>
+                            <td class="p-3">{{ \Carbon\Carbon::parse($mt->datanasc)->format('d/m/Y') }}</td>
                             <td class="p-3">{{ $mt->numcont }}</td>
                             <td class="p-3 space-x-2">
                                 <a href="{{ route('motoristas.edit', $mt->id) }}" class="text-blue-600 hover:underline">✏️ Editar</a>

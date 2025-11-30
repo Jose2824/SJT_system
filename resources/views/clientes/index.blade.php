@@ -61,16 +61,22 @@
                             <td class="p-3">{{ $index + 1 }}</td>
                             <td class="p-3 max-w-xs truncate" title="{{ $c->razaoSocial }}">{{ $c->razaoSocial }}</td>
                             <td class="p-3 max-w-xs truncate" title="{{ $c->nomeFantasia }}">{{ $c->nomeFantasia }}</td>
-                            <td class="p-3">{{ $c->cnpj }}</td>
+                            <td class="p-3">{{ preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "$1.$2.$3/$4-$5",$c->cnpj )}}</td>
                             <td class="p-3">{{ $c->inscricao_estadual }}</td>
-                            <td class="p-3">{{ $c->telefone }}</td>
+                            <td>
+                                @if(strlen($c->telefone) === 11)
+                                    {{ preg_replace("/(\d{2})(\d{5})(\d{4})/", "($1) $2-$3", $c->telefone) }}
+                                 @else
+                                    {{ preg_replace("/(\d{2})(\d{4})(\d{4})/", "($1) $2-$3", $c->telefone) }}
+                                 @endif
+                            </td>
                             <td class="p-3 max-w-sm truncate" title="{{ $c->email }}">{{ $c->email }}</td>
                             <td class="p-3 max-w-sm truncate" title="{{ $c->rua }}">{{ $c->rua }}</td>
                             <td class="p-3">{{ $c->numero }}</td>
                             <td class="p-3 max-w-xs truncate" title="{{ $c->bairro }}">{{ $c->bairro }}</td>
                             <td class="p-3">{{ $c->cidade }}</td>
                             <td class="p-3">{{ $c->estado }}</td>
-                            <td class="p-3">{{ $c->cep }}</td>
+                            <td class="p-3">{{ preg_replace("/(\d{5})(\d{3})/", "$1-$2",$c->cep )}}</td>
                             <td class="p-3 space-x-2">
                                 <a href="{{ route('clientes.edit', $c->id) }}" class="text-blue-600 hover:underline">✏️ Editar</a>
                                 <form action="{{ route('clientes.destroy', $c->id) }}" method="POST" class="inline" onsubmit="return confirm('Confirma exclusão deste cliente?')">
